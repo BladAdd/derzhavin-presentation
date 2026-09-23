@@ -1,0 +1,329 @@
+/* ============================================================
+   Державин · тема «Чернила и золото» (стиль XVIII века)
+   ============================================================ */
+
+:root {
+  --bg:        #171009;
+  --bg-soft:   #1e150b;
+  --panel:     #22180c;
+  --ink:       #f2e7cd;
+  --ink-dim:   #d4c4a2;
+  --gold:      #d3af5a;
+  --gold-dim:  rgba(211, 175, 90, 0.35);
+  --gold-soft: rgba(211, 175, 90, 0.16);
+  --burg:      #8b2438;
+  --serif: 'PT Serif', Georgia, 'Times New Roman', serif;
+  --display: 'Playfair Display', Georgia, serif;
+}
+
+/* ---------- шрифты ---------- */
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../fonts/playfair-display-cyrillic-600-normal.woff2') format('woff2');
+  font-style: normal; font-weight: 600; font-display: swap;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../fonts/playfair-display-cyrillic-700-normal.woff2') format('woff2');
+  font-style: normal; font-weight: 700; font-display: swap;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../fonts/playfair-display-cyrillic-900-normal.woff2') format('woff2');
+  font-style: normal; font-weight: 900; font-display: swap;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../fonts/playfair-display-cyrillic-600-italic.woff2') format('woff2');
+  font-style: italic; font-weight: 600; font-display: swap;
+}
+@font-face {
+  font-family: 'PT Serif';
+  src: url('../fonts/pt-serif-cyrillic-400-normal.woff2') format('woff2');
+  font-style: normal; font-weight: 400; font-display: swap;
+}
+@font-face {
+  font-family: 'PT Serif';
+  src: url('../fonts/pt-serif-cyrillic-400-italic.woff2') format('woff2');
+  font-style: italic; font-weight: 400; font-display: swap;
+}
+@font-face {
+  font-family: 'PT Serif';
+  src: url('../fonts/pt-serif-cyrillic-700-normal.woff2') format('woff2');
+  font-style: normal; font-weight: 700; font-display: swap;
+}
+
+/* ---------- основа сцены ---------- */
+html { background: var(--bg); }
+
+body {
+  background:
+    radial-gradient(1200px 700px at 20% -10%, rgba(211, 175, 90, 0.10), transparent 60%),
+    radial-gradient(1000px 700px at 110% 115%, rgba(139, 36, 56, 0.16), transparent 55%),
+    radial-gradient(900px 600px at 85% 5%, rgba(120, 90, 40, 0.08), transparent 50%),
+    linear-gradient(160deg, #191109 0%, #140c06 55%, #120a05 100%);
+  background-attachment: fixed;
+}
+
+/* медленное «дыхание» фона */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(60% 45% at 50% 42%, rgba(226, 195, 120, 0.06), transparent 70%);
+  animation: breath 16s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes breath {
+  from { opacity: 0.35; transform: scale(1); }
+  to   { opacity: 1;    transform: scale(1.12); }
+}
+
+/* тонкая рамка-«паспарту» вокруг слайда */
+.slide-frame {
+  position: absolute; inset: 16px;
+  border: 1px solid var(--gold-dim);
+  pointer-events: none;
+  z-index: 6;
+}
+.slide-frame::before,
+.slide-frame::after {
+  content: "";
+  position: absolute; width: 30px; height: 30px;
+  border-color: var(--gold);
+}
+.slide-frame::before {
+  top: -1px; left: -1px;
+  border-top: 2px solid var(--gold);
+  border-left: 2px solid var(--gold);
+}
+.slide-frame::after {
+  bottom: -1px; right: -1px;
+  border-bottom: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+}
+/* две мягкие точки в других углах */
+.slide-frame b, .slide-frame i {
+  position: absolute; width: 7px; height: 7px;
+  background: var(--gold); border-radius: 50%;
+  opacity: 0.8;
+}
+.slide-frame b { top: 8px; right: 8px; }
+.slide-frame i { bottom: 8px; left: 8px; }
+
+/* ---------- типографика ---------- */
+.reveal {
+  font-family: var(--serif);
+  color: var(--ink);
+  font-size: 30px;
+  line-height: 1.42;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+
+.reveal h1, .reveal h2, .reveal h3 {
+  font-family: var(--display);
+  color: #f6ecd0;
+  letter-spacing: 0.015em;
+  line-height: 1.12;
+  margin: 0 0 0.25em;
+  text-transform: none;
+}
+
+.reveal h1 { font-size: 2.05em; font-weight: 700; }
+.reveal h2 { font-size: 1.5em;  font-weight: 700; margin-bottom: 0.35em; }
+.reveal h3 { font-size: 1.12em; font-weight: 600; color: #f3e6c4; }
+.reveal p  { margin: 0.25em 0; }
+.reveal em { color: #efdca3; font-style: italic; }
+.reveal strong { color: #f6e6b8; }
+.reveal a { color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--gold-dim); transition: border-color .3s; }
+.reveal a:hover { border-bottom-color: var(--gold); }
+
+/* надзаголовок-«кикер» */
+.kicker {
+  font-family: var(--serif);
+  font-size: 0.5em;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.9em;
+  display: inline-block;
+}
+
+/* декоративный разделитель */
+.divider {
+  display: flex; align-items: center; gap: 12px;
+  width: min(560px, 80%); margin: 0.5em auto;
+}
+.divider::before, .divider::after {
+  content: ""; height: 1px; flex: 1;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.divider::after { background: linear-gradient(90deg, var(--gold), transparent); }
+.divider i {
+  font-style: normal; color: var(--gold);
+  font-size: 0.6em; line-height: 1;
+}
+
+/* ---------- ввод заголовков ---------- */
+.reveal .present .rise { animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.reveal .present .rise-2 { animation: rise 0.9s 0.12s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.reveal .present .fade-in-late { animation: rise 1s 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(26px); filter: blur(3px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+
+/* ремарочные подклассы: появление по щелчку */
+.reveal .fragment.grow,
+.reveal .fragment.fade-in-then-semi-out { will-change: opacity, transform; }
+
+/* появление картинок с «проявлением» */
+.reveal .fragment.zoom-in, .reveal .fragment.zoom-out { transition: all 0.6s ease; }
+
+/* ---------- карточки ---------- */
+.cards { display: flex; gap: 26px; justify-content: center; align-items: stretch; flex-wrap: wrap; }
+.card {
+  flex: 1 1 300px; max-width: 400px;
+  background: linear-gradient(165deg, var(--panel), #190f07);
+  border: 1px solid var(--gold-dim);
+  border-radius: 8px;
+  padding: 24px 22px;
+  text-align: left;
+  box-shadow: 0 12px 34px rgba(0,0,0,0.45);
+  position: relative;
+}
+.card::before {
+  content: ""; position: absolute; top: -1px; left: -1px; right: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold-soft), var(--gold), var(--gold-soft));
+}
+.card h3 { font-family: var(--display); font-size: 1.25em; margin: 0 0 0.4em; color: #f3e6c4; }
+.card p { font-size: 0.72em; color: var(--ink-dim); margin: 0.15em 0; }
+.card .year {
+  display: block; font-size: 0.58em; letter-spacing: 0.18em;
+  color: var(--gold); margin-bottom: 0.45em; text-transform: uppercase;
+}
+
+/* хронология */
+.timeline { text-align: left; max-width: 760px; margin: 0 auto; }
+.tl-item {
+  display: flex; gap: 22px; align-items: baseline;
+  padding: 0.3em 0;
+  border-bottom: 1px dashed rgba(211, 175, 90, 0.2);
+}
+.tl-item:last-child { border-bottom: none; }
+.tl-year {
+  font-family: var(--display); font-weight: 900;
+  color: var(--gold); font-size: 1.05em; min-width: 88px; text-align: right;
+}
+.tl-text { font-size: 0.78em; color: var(--ink); }
+
+/* ряд фактов-плашек */
+.facts { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 0.6em; }
+.fact {
+  background: rgba(24, 15, 7, 0.75);
+  border: 1px solid var(--gold-dim);
+  border-radius: 5px;
+  padding: 12px 18px;
+  font-size: 0.68em;
+  color: var(--ink-dim);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+.fact b { display: block; color: #f3e6c4; font-size: 1.05em; margin-bottom: 2px; }
+
+/* ---------- изображения ---------- */
+.fig {
+  background: linear-gradient(180deg, #271c0e, #180f07);
+  border: 1px solid var(--gold-dim);
+  border-radius: 6px;
+  padding: 7px;
+  box-shadow: 0 14px 44px rgba(0,0,0,0.6);
+}
+.fig img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
+.fig .cap {
+  font-size: 0.4em; font-style: italic; color: #c2ad83;
+  text-align: center; padding-top: 6px; line-height: 1.3;
+}
+.fig-portrait  { width: 340px; height: 500px; }
+.fig-med       { width: 420px; height: 300px; }
+.fig-tall      { width: 320px; height: 440px; }
+.fig-square    { width: 380px; height: 300px; }
+
+.layout { display: flex; align-items: center; justify-content: center; gap: 54px; flex-wrap: wrap; }
+.layout .text { flex: 1 1 420px; max-width: 720px; text-align: left; }
+
+/* коллаж на слайде памяти */
+.collage { display: grid; grid-template-columns: repeat(2, 250px); gap: 18px; }
+.collage .fig { height: 190px; }
+.collage .fig.wide { grid-column: span 2; }
+
+/* ---------- большие цитаты ---------- */
+.quote-big {
+  font-family: var(--display);
+  font-size: 1.45em; font-style: italic; font-weight: 600;
+  color: #f5e6bd; line-height: 1.45;
+  max-width: 900px; margin: 0.2em auto;
+}
+.quote-big small {
+  display: block; margin-top: 0.5em;
+  font-family: var(--serif); font-style: normal;
+  font-size: 0.4em; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gold);
+}
+.quote-mark {
+  font-size: 2.6em; line-height: 0; color: var(--gold);
+  font-family: var(--display); display: block; margin-bottom: 0.12em;
+}
+
+/* двойное сравнение строк Пушкина/Державина */
+.duet { max-width: 860px; margin: 0 auto; }
+.duet .row {
+  display: flex; align-items: stretch; gap: 22px;
+  border-top: 1px solid rgba(211, 175, 90, 0.25);
+  padding: 1em 0 0.9em;
+}
+.duet .who { flex: 0 0 170px; font-family: var(--display); font-weight: 700; color: var(--gold); font-size: 0.85em; }
+.duet .verse { font-style: italic; color: var(--ink); font-size: 0.8em; line-height: 1.5; }
+
+/* автограф как «титры» */
+.autograph {
+  font-family: var(--display); font-style: italic;
+  color: rgba(240, 226, 195, 0.85);
+}
+
+/* подсказка */
+.hint {
+  position: absolute; bottom: 26px; left: 0; right: 0;
+  text-align: center; z-index: 8;
+  color: rgba(212, 180, 90, 0.75);
+  font-size: 0.42em; letter-spacing: 0.14em; text-transform: uppercase;
+}
+
+/* финал */
+.finale { text-align: center; }
+
+/* ---------- элементы навигации reveal ---------- */
+.reveal .controls { color: var(--gold); }
+.reveal .controls .navigate-left  .controls-arrow,
+.reveal .controls .navigate-right .controls-arrow { border-color: var(--gold); }
+.reveal .progress { height: 4px; color: var(--gold); }
+.reveal .progress span { background: linear-gradient(90deg, var(--burg), var(--gold)); }
+.reveal .slide-number {
+  font-family: var(--serif);
+  color: var(--gold);
+  font-size: 0.8em;
+  background-color: rgba(20, 12, 5, 0.55);
+  border: 1px solid var(--gold-dim);
+  border-radius: 4px;
+  padding: 0.15em 0.55em;
+}
+
+/* кнопка обзора (overview) */
+.reveal .overview { color: inherit; }
+.reveal.overview .section { border: 1px solid var(--gold-dim); }
+
+/* ---------- печать / экспорт ---------- */
+@media print {
+  .reveal { font-size: 22pt; }
+  .reveal .slides section { page-break-after: always; }
+}
